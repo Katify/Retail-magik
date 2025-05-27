@@ -10,7 +10,7 @@ movies = html.css("div.trendingmovz figure ")
 shows = html.css("div.trendingshowz figure")
 
 def extract_text(html, sel):
-   return html.css_first(sel).text()
+   return html.css_first(sel).text(strip=True)
 
 
 print("Trending movies")
