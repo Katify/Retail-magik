@@ -12,14 +12,44 @@
   background-image: url('./images/armour.jpg');
   }
   </style>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cartTrigger = document.getElementById('cartTrigger');
+  const cartModal = document.getElementById('cartModal');
+  const closeCart = document.querySelector('.close-cart');
+  
+  // Prevent default link behavior
+  cartTrigger.addEventListener('click', function(e) {
+    e.preventDefault();
+    cartModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  
+  closeCart.addEventListener('click', function() {
+    cartModal.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+  
+    cartModal.addEventListener('click', function(e) {
+    if (e.target === cartModal) {
+      cartModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+});
+</script>
   <head>
     
   <link rel="stylesheet" href="style.css">
 <div class= "header">
     
 <h1>Mavlegro</h1>
-<div class='cart-button'>
-  <a href=''><img src='./images/cart.jpg'style= 'height:100px;width:100px;' class='cart'></a>
+<div class="cart-button">
+  <a href="#" id="cartTrigger">
+    <img src="./images/cart.jpg" style="height:100px;width:100px;" class="cart" alt="Shopping Cart">
+    <span class="cart-count">0</span>
+  </a>
 </div>
   <div class='login-button'>
       <img src='./images/login.jpg' style= 'height: 75px; width:75px;' class='login'>
@@ -36,8 +66,10 @@
       <li><a href="./Lost&Divine.html">  <img src ="./images/lost-divine.png" style = "height: 100%; width: 90%;"> Lost&Divine </a></li>
     </ul>
     </div>
+
+   
   
-  <body class='armourment-page'>
+  
 <div class = content>
     <h2>Welcome to Mavlegro</h2>
     <div class="card-container">
@@ -101,5 +133,6 @@
             </div>
         </div>
   </body>
+  <script src="cart.js"></script>
 </html>
 

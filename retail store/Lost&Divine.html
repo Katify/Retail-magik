@@ -16,13 +16,16 @@
     <link rel="stylesheet" href="style.css" />
     <div class="header">
       <h1>Mavlegro</h1>
+      <!-- On ALL pages (armourment.html, magiks.html, etc.) -->
       <div class="cart-button">
-        <a href=""
-          ><img
+        <a href="cart.html" class="cart-btn">
+          <img
             src="./images/cart.jpg"
+            alt="Shopping Cart"
             style="height: 100px; width: 100px"
-            class="cart"
-        /></a>
+          />
+          <span class="cart-count">0</span>
+        </a>
       </div>
       <div class="login-button">
         <img
@@ -107,5 +110,6 @@
         </div>
       </div>
     </div>
+    <script src="cart.js"></script>
   </body>
 </html>
