@@ -1,10 +1,41 @@
 <html>
+  <style>
+    body {
+      background-image: url("./images/potion.jpg");
+      background-repeat: no-repeat;
+      background-size: cover; /* Fills entire screen */
+      background-position: center; /* Centers image */
+      background-attachment: fixed;
+    }
+    ul.banner {
+      background-color: green;
+    }
+  </style>
+
   <head>
     <link rel="stylesheet" href="style.css" />
     <div class="header">
       <h1>Mavlegro</h1>
+      <div class="cart-button">
+        <a href=""
+          ><img
+            src="./images/cart.jpg"
+            style="height: 100px; width: 100px"
+            class="cart"
+        /></a>
+      </div>
+      <div class="login-button">
+        <img
+          src="./images/login.jpg"
+          style="height: 75px; width: 75px"
+          class="login"
+        />
+      </div>
+
       <input class="search" type="text" placeholder="Search.." />
     </div>
+  </head>
+  <body class="potions-page">
     <div class="header-2">
       <ul class="banner">
         <li>
@@ -34,8 +65,7 @@
         </li>
       </ul>
     </div>
-  </head>
-  <body class="potions-page">
+
     <div class="card-container">
       <div class="card">
         <div class="image-container">

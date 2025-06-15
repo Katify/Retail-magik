@@ -30,11 +30,13 @@
 }
 
 ul.banner {
-  background-color: #ddc191;
   display: flex;
   height: auto;
   flex-wrap: wrap;
   padding: 10px 0;
+}
+a {
+  color: black;
 }
 
 .item-title {
@@ -112,7 +114,6 @@ ul.banner li img {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 20px;
-  background-color: orange;
   max-width: 100%;
   gap: 25px;
   margin-left: auto;
