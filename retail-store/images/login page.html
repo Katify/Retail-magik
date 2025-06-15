@@ -1,0 +1,165 @@
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            width: 300px;
+        }
+
+        .login-modal h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-family: "Garamond", serif;
+        }
+
+        .login-modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .login-modal button {
+            width: 100%;
+            padding: 10px;
+            background-color: orange;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .login-button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<div class="header">
+    <h1>Mavlegro</h1>
+    <div class='cart-button'>
+        <a href=''><img src='./images/cart.jpg' style='height:100px;width:100px;' class='cart'></a>
+    </div>
+    <div class='login-button' onclick="openLogin()">
+        <img src='./images/login.jpg' style='height: 75px; width:75px;' class='login'>
+    </div>
+    <input class="search" type="text" placeholder="Search..">
+</div>
+
+<div class="overlay" id="overlay"></div>
+<div class="login-modal" id="loginModal">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<body class='armourment-page'>
+<div class="header-2">
+    <ul class="banner">
+        <li><a href="./Armourment.html"> <img src="./images/hands.jpeg" style="height: 100%;"> Armourment  </a></li>
+        <li> <a href="./Magiks.html">  <img src="./images/pot.png" style="height: 100%;"> Magiks </a></li>
+        <li><a href="./Potions.html">  <img src="./images/potion.png" style="height: 100%; width: 90%;"> Potions </a></li>
+        <li><a href="./Lost&Divine.html">  <img src="./images/lost-divine.png" style="height: 100%; width: 90%;"> Lost&Divine </a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <h2>Welcome to Mavlegro</h2>
+    <div class="card-container">
+        <div class="card">
+            <div class="image-container">
+                <img src="./images/Almost Forever Firesticks 1.jpg" class="image">
+                <img src='./images/Almost Forever Firesticks 2.jpg' class='hover-image'>
+            </div>
+            <div class="item-info">
+                <div class="item-title">Firesticks</div>
+                <div class="item-price">30</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="image-container">
+                <img src="https://i.imgur.com/JQfiHw8.png" class="image">
+            </div>
+            <div class="item-info">
+                <div class="item-title">Sword of Dehydration</div>
+                <div class="item-price">50</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="image-container">
+                <img src="https://i.imgur.com/Tz67ZKi.png" class="image">
+            </div>
+            <div class="item-info">
+                <div class="item-title">Helm of Spoil</div>
+                <div class="item-price">30</div>
+            </div>
+        </div>
+
+        Bube Mav, [2025/06/15 23:57]
+        <div class="card">
+            <div class="image-container">
+                <img src="https://i.imgur.com/TCWZgti.png" class="image">
+            </div>
+            <div class="item-info">
+                <div class="item-title">Armour of Slime</div>
+                <div class="item-price">75</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openLogin() {
+        document.getElementById('loginModal').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeLogin() {
+        document.getElementById('loginModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    document.getElementById('overlay').addEventListener('click', closeLogin);
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Login functionality would go here');
+        closeLogin();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeLogin();
+        }
+    });
+</script>
+</body>
+</html>
