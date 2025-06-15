@@ -1,0 +1,240 @@
+<html>
+
+  <style>
+  body{
+  background-image: url('./images/armour.jpg');
+  background-repeat: no-repeat;
+  background-size: cover; /* Fills entire screen */
+  background-position: center; /* Centers image */
+  background-attachment: fixed;
+  }
+  ul.banner{
+  background-image: url('./images/armour.jpg');
+  }
+  </style>
+  <head>
+    
+  <link rel="stylesheet" href="style.css">
+<div class= "header">
+    
+<h1>Mavlegro</h1>
+<div class='cart-button'>
+  <a href=''><img src='./images/cart.jpg'style= 'height:100px;width:100px;' class='cart'></a>
+</div>
+  <div class='login-button'>
+      <img src='./images/login.jpg' style= 'height: 75px; width:75px;' class='login'>
+      </div>
+<input class = "search" type="text" placeholder="Search.." id="searchInput">
+    <button onclick="searchProducts()">Search</button>
+</div>
+  <div class = "header-2">
+    <ul class= "banner">
+     <li><a href="./Armourment.html"> <img src="./images/hands.jpeg" style= "height: 100%;"> Armourment  </a></li>
+     <li> <a href="./Magiks.html">  <img src ="./images/pot.png" style = "height: 100%;"> Magiks </a></li>
+      <li><a href="./Potions.html">  <img src ="./images/potion.png" style = "height: 100%; width: 90%;"> Potions </a></li>
+      <li><a href="./Lost&Divine.html">  <img src ="./images/lost-divine.png" style = "height: 100%; width: 90%;"> Lost&Divine </a></li>
+    </ul>
+    </div>
+  </head>
+  <body>
+<div class = content>
+    <h2>Welcome to Mavlegro</h2>
+    <div class="card-container">
+
+    <div class="card">
+            <div class="image-container">
+                <img src="./images/Almost Forever Firesticks 1.jpg" class="image">
+                <img src='./images/Almost Forever Firesticks 2.jpg' class='hover-image'>
+            </div>
+
+            <div class="item-info">
+                <div class="item-title">Firesticks</div>
+                <div class="item-price">30</div>
+            </div>
+        </div>    
+
+        <div class = card>
+          <div class ="image-container">
+           <img src="https://i.imgur.com/JQfiHw8.png" class="image"> 
+          </div> 
+       <div class="item-info">
+                <div class="item-title">Sword of Dehydration</div>
+                <div class="item-price">50</div>
+            </div>
+        </div>   
+
+    <div class = card>
+          <div class ="image-container">
+        <img src="https://i.imgur.com/Tz67ZKi.png" class="image"> 
+          </div> 
+          <div class="item-info">
+                <div class="item-title">Helm of Spoil</div>
+                <div class="item-price">30</div>
+            </div>
+        </div>
+
+       <div class = card>
+          <div class ="image-container">
+        <img src="https://i.imgur.com/TCWZgti.png" class="image"> 
+          </div> 
+           <div class="item-info">
+                <div class="item-title">Armour of Slime</div>
+                <div class="item-price">75</div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<script>
+    // Cart functionality
+    let sessionId = 'guest-' + Math.random().toString(36).substr(2, 9);
+
+    async function toggleCart() {
+        const modal = document.getElementById('cartModal');
+        modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+        if (modal.style.display === 'block') {
+            await loadCart();
+        }
+    }
+
+    async function loadCart() {
+        try {
+            const response = await fetch('http://localhost:3001/api/cart', {
+                headers: {
+                    'session-id': sessionId
+                }
+            });
+            const cart = await response.json();
+
+            document.getElementById('cartCount').textContent = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartTotal').textContent = cart.total.toFixed(2);
+
+            const cartItemsContainer = document.getElementById('cartItems');
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.items.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty</p>';
+                return;
+            }
+
+            cart.items.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+              <img src="${item.image}" alt="${item.title}">
+              <div class="cart-item-details">
+                <h3>${item.title}</h3>
+                <p>$${item.price} x ${item.quantity}</p>
+                <button onclick="removeFromCart('${item.productId}')">Remove</button>
+              </div>
+            `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+        } catch (error) {
+            console.error('Error loading cart:', error);
+        }
+    }
+
+    async function addToCart(product) {
+        try {
+            const response = await fetch('http://localhost:3001/api/cart/items', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'session-id': sessionId
+                },
+                body: JSON.stringify({
+                    productId: product._id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.image
+                })
+            });
+
+            const cart = await response.json();
+            document.getElementById('cartCount').textContent = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartTotal').textContent = cart.total.toFixed(2);
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+        }
+    }
+
+    async function removeFromCart(productId) {
+        try {
+            const response = await fetch(`http://localhost:3001/api/cart/items/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'session-id': sessionId
+                }
+            });
+
+            await loadCart();
+        } catch (error) {
+            console.error('Error removing from cart:', error);
+        }
+    }
+
+    function checkout() {
+        alert('Checkout functionality would go here!');
+    }
+
+    async function loadProducts(searchQuery = '') {
+        try {
+            const container = document.getElementById('productContainer');
+            container.innerHTML = '<div class="loading">Loading products...</div>';
+
+            const response = await fetch(`http://localhost:3001/api/search?q=${encodeURIComponent(searchQuery)}`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const products = await response.json();
+            container.innerHTML = '';
+
+            if (products.length === 0) {
+                container.innerHTML = '<div class="no-results">No products found</div>';
+                return;
+            }
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+              <div class="image-container">
+                <img src="${product.image}" class="image" alt="${product.title}">
+              </div>
+              <div class="item-info">
+                <div class="item-title">${product.title}</div>
+                <div class="item-price">$${product.price}</div>
+                <button onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})">Add to Cart</button>
+              </div>
+            `;
+                container.appendChild(card);
+            });
+
+        } catch (error) {
+            console.error('Error loading products:', error);
+            const container = document.getElementById('productContainer');
+            container.innerHTML = `<div class="error">Error loading products: ${error.message}</div>`;
+        }
+    }
+
+    function searchProducts() {
+        const searchInput = document.getElementById('searchInput');
+        const query = searchInput.value.trim();
+        loadProducts(query);
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            searchProducts();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProducts();
+    });
+</script>
+  </body>
+</html>
+
